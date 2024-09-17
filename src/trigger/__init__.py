@@ -1,0 +1,1 @@
+from trigger.trigger import trigger
