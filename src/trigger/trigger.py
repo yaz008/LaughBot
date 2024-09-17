@@ -9,9 +9,9 @@ with open(file='src\\trigger\\replace.json',
           encoding='UTF-8') as replace_file:
     REPLACE: dict[str, str] = load(replace_file)
 
-def trigger(func: Callable[[Client, str], None]) -> Callable[[Client, Message], None]:
-    def wrapper(client: Client, message: Message) -> None:
+def trigger(func: Callable[[Message, str], None]) -> Callable[[Client, Message], None]:
+    def wrapper(_: Client, message: Message) -> None:
         if message.from_user.id == int(getenv(key='MY_ID')):
             if message.text in REPLACE.keys():
-                func(client, REPLACE[message.text])
+                func(message, REPLACE[message.text])
     return wrapper

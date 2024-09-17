@@ -1,10 +1,11 @@
 from app import app
-from pyrogram.client import Client
 from pyrogram.types import Message
+from trigger import trigger
 
 @app.on_message(filters=None)
-def on_message(_: Client, message: Message) -> None:
-    print(message.text)
+@trigger
+def on_trigger(message: Message, replace: str) -> None:
+    message.edit_text(text=replace)
 
 if __name__ == '__main__':
     app.run()
